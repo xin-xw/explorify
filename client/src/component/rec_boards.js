@@ -26,8 +26,8 @@ const useStyles = makeStyles({
   },
   checkboxes_icon: {
     borderRadius: 3,
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     boxShadow:
       "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
     backgroundColor: "#f5f8fa",
@@ -51,8 +51,8 @@ const useStyles = makeStyles({
       "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
     "&:before": {
       display: "block",
-      width: 16,
-      height: 16,
+      width: 18,
+      height: 18,
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
         " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
@@ -66,9 +66,9 @@ const useStyles = makeStyles({
   paper_root: {
     // backgroundColor: "black:",
     padding: 10,
-    width: "50%",
-    borderRadius: 10,
-    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.15)",
+    width: "95%",
+    // borderRadius: 10,
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.1)",
   },
 });
 
@@ -144,26 +144,9 @@ const recs = {
   },
 };
 
-// function styled_checkbox(props) {
-//   const classes = useStyles();
-
-//   return (
-//     <Checkbox
-//       className={classes.checkboxes_root}
-//       disableRipple
-//       color="default"
-//       checkedIcon={<span className={clsx(classes.checkboxes_icon, classes.checked_icon)} />}
-//       icon={<span className={classes.icon} />}
-//       inputProps={{ "aria-label": "decorative checkbox" }}
-//       {...props}
-//     />
-//   );
-// }
-
 export default function RecBoards({ onChange }) {
   const classes = useStyles();
   const [board_values, set_board_values] = useState(recs);
-  console.log(board_values);
 
   const handle_change = (rec, value) => {
     const new_board_values = { ...board_values };
@@ -184,27 +167,28 @@ export default function RecBoards({ onChange }) {
   return (
     <Grid container spacing={0} style={{ padding: 0 }} justify="center">
       <Paper elevation={3} className={classes.paper_root}>
-        <Grid item xs={12}>
-          {Object.keys(recs).map((rec) => (
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <Checkbox
-                className={classes.checkboxes_root}
-                disableRipple
-                color="default"
-                checkedIcon={
-                  <span
-                    className={clsx(
-                      classes.checkboxes_icon,
-                      classes.checked_icon
-                    )}
-                  />
-                }
-                icon={<span className={classes.checkboxes_icon} />}
-                inputProps={{ "aria-label": "decorative checkbox" }}
-                checked={board_values[rec].enabled}
-                onChange={(e, newValue) => toggle_rec(rec, newValue)}
-              />
-              <div style={{ flex: 1 }}>
+        {/* <Grid item xs={12}>  */}
+        {Object.keys(recs).map((rec) => (
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Checkbox
+              className={classes.checkboxes_root}
+              disableRipple
+              color="default"
+              checkedIcon={
+                <span
+                  className={clsx(
+                    classes.checkboxes_icon,
+                    classes.checked_icon
+                  )}
+                />
+              }
+              icon={<span className={classes.checkboxes_icon} />}
+              inputProps={{ "aria-label": "decorative checkbox" }}
+              checked={board_values[rec].enabled}
+              onChange={(e, newValue) => toggle_rec(rec, newValue)}
+            />
+            <div style={{ flex: 1 }}>
+              <Grid container>
                 <Typography>{rec}</Typography>
                 <Grid container spacing={1}>
                   <Grid item>
@@ -226,10 +210,11 @@ export default function RecBoards({ onChange }) {
                     <Typography>max</Typography>
                   </Grid>
                 </Grid>
-              </div>
+              </Grid>
             </div>
-          ))}
-        </Grid>
+          </div>
+        ))}
+        {/* </Grid> */}
       </Paper>
     </Grid>
   );

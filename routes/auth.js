@@ -4,14 +4,33 @@ const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
+/*
+
+(how we get the big cheese) workflow explained:
+
+1. user goes to /login via button on page
+2. we res.redirect them to spotify.com/authorize
+3. upon successful auth, SPOTIFY redirects them to /callback
+4. in callback, we request refresh and access tokens
+5. we then send these to user (via cookies) so they can hold onto them for us 
+6. user is sent playlist_picker.html so they can send us tunes
+7. user sends us playlist! (or liked songs or listening history)(for now just playlist)
+8. we page spotify for artist/genre, tracks/features
+
+b. if necessary, we can refresh access w/ refresh token
+
+*/
 
 // Have our application request authorization, and then have the user log in via spotify’s auth flow
 router.get("/login", (req, res) => {
+  var scope = "playlist-modify-public "; // What we ask to see
   res.redirect(
+    // 2. & 3.
     `https://accounts.spotify.com/authorize?${querystring.stringify({
       response_type: "code",
       client_id: process.env.SPOTIFY_CLIENT_ID,
-      redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+      scope: scope,
+      redirect_uri: process.env.SPOTIFY_REDIRECT_URI, // where we go after successful login
     })}`
   );
 });
@@ -43,7 +62,7 @@ router.get("/callback", async (req, res) => {
 
   const sessionJWTObject = {
     token: data.access_token,
-    refresh_token: data.refresh_token,
+    // refresh_token: data.refresh_token,
   };
 
   req.session.jwt = jwt.sign(sessionJWTObject, process.env.JWT_SECRET_KEY);

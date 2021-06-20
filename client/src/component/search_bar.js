@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
   Typography,
+  Box,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import SearchResults from "./search_results";
@@ -14,6 +15,7 @@ import SearchResults from "./search_results";
 const useStyles = makeStyles({
   root: {
     marginTop: "5px",
+    justifyContent: "center",
     alignItems: "center",
   },
   search_bar: {
@@ -25,6 +27,37 @@ const useStyles = makeStyles({
     margin: "auto",
     "background-color": "white",
     borderRadius: 5,
+    // minHeight: 150,
+    marginBottom: 30,
+  },
+  search_result: {
+    // paddingTop: -10,
+    // marginTop: -20,
+  },
+  selected_seeds: {
+    // paddingTop: 10,
+    // marginTop: 20,
+    maxWidth: 400,
+  },
+  selected_seeds_header: {
+    fontSize: 18,
+    marginTop: -5,
+    fontWeight: "600",
+    marginLeft: 13,
+    textAlign: "left",
+    // paddingTop: 3,
+    // marginTop: 20,
+    // maxWidth: 350,
+  },
+  selected_seeds_songs: {
+    fontSize: 14,
+    lineHeight: 2,
+    marginLeft: 20,
+    textAlign: "left",
+    // fontWeight: "600",
+    // paddingTop: 3,
+    // marginTop: 20,
+    // maxWidth: 350,
   },
 });
 
@@ -34,14 +67,15 @@ export default function SearchBar({ auth, onChange }) {
 
   const [search_result, set_search_result] = useState([]);
   const [search_string, set_search_string] = useState("");
-  const [selected_artists, set_selected_artists] = useState([]);
+  const [seleceted_seeds, set_selected_seeds] = useState([]);
+  const [seed_ids, set_seed_ids] = useState([]);
 
-  async function spotify_search_artists() {
+  async function spotify_search_songs() {
     const url = "https://api.spotify.com/v1/search";
     const search_query = encodeURIComponent(search_string);
-    console.log("search_query", search_query);
-    const search_type_query = "type=artist";
-    console.log("token", token);
+    // console.log("search_query", search_query);
+    const search_type_query = "type=track";
+    // console.log("token", token);
     const { data } = await axios.get(
       `${url}?q=${search_query}&${search_type_query}`,
       {
@@ -51,16 +85,16 @@ export default function SearchBar({ auth, onChange }) {
       }
     );
     console.log(data);
-    if (data && data.artists) {
-      set_search_result(data.artists.items);
+    if (data && data.tracks) {
+      set_search_result(data.tracks.items);
     }
   }
 
   useEffect(() => {
-    onChange(selected_artists);
-  }, [onChange, selected_artists]);
+    onChange(seleceted_seeds);
+  }, [onChange, seleceted_seeds]);
 
-  console.log("search_result", search_result);
+  // console.log("search_result", search_result);
 
   return (
     <Grid
@@ -70,17 +104,23 @@ export default function SearchBar({ auth, onChange }) {
       justify="center"
     >
       <Grid item xs={12}>
-        <Paper elevation={3} className={classes.search_bar}>
+        <Box className={classes.search_bar}>
           <TextField
             id={"outlined-basic"}
             variant={"outlined"}
-            label={"Search"}
-            placeholder="Enter Artist Name"
+            // label={"search for seeds"}
+            placeholder="enter reference tracks"
             fullWidth
             InputLabelProps={{
               shrink: true,
             }}
-            onChange={(event) => set_search_string(event.target.value)}
+            onChange={(e) => set_search_string(e.target.value)}
+            onKeyDown={(e) => {
+              console.log(e.key);
+              if (e.key === "Enter") {
+                spotify_search_songs();
+              }
+            }}
             value={search_string}
           ></TextField>
           <Button
@@ -89,24 +129,32 @@ export default function SearchBar({ auth, onChange }) {
               backgroundColor: "#1DB954",
               color: "white",
             }}
-            onClick={spotify_search_artists}
+            onClick={spotify_search_songs}
+            variant="contained"
           >
             <Search />
           </Button>
+        </Box>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Box className={classes.search_results}>
+          <SearchResults
+            results={search_result}
+            onChange={set_selected_seeds}
+          />
+        </Box>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        {/* <Typography className={classes.selected_seeds_header}>
+          Your selected seeds will appear here
+        </Typography> */}
+        <Paper className={classes.selected_seeds}>
+          {seleceted_seeds.map((songs, index) => (
+            <Typography className={classes.selected_seeds_songs}>
+              {index + 1}. {songs}
+            </Typography>
+          ))}
         </Paper>
-      </Grid>
-      <Grid item xs={6}>
-        {selected_artists.map((artist, index) => (
-          <Typography>
-            {index + 1}. {artist}
-          </Typography>
-        ))}
-      </Grid>
-      <Grid item xs={12}>
-        <SearchResults
-          results={search_result}
-          onChange={set_selected_artists}
-        />
       </Grid>
     </Grid>
   );

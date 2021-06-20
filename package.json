@@ -9,7 +9,6 @@
   "author": "xinwng",
   "license": "ISC",
   "dependencies": {
-    "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "cookie-session": "^1.4.0",
     "csurf": "^1.11.0",

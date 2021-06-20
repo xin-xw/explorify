@@ -7,9 +7,8 @@
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./App.css";
-import Home from "./home";
-import Loading from "./loading";
+import LoginPage from "./pre_pages/login_page";
+import Loading from "./pre_pages/loading";
 import Explorify from "./explorify";
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
   if (auth) {
     return <Explorify auth={auth} />;
   }
-  return <Home />;
+  return <LoginPage />;
 }
 
 export default App;
