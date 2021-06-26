@@ -10,6 +10,7 @@ import axios from "axios";
 import LoginPage from "./pre_pages/login_page";
 import Loading from "./pre_pages/loading";
 import Explorify from "./explorify";
+import SnackbarProvider from "react-simple-snackbar";
 
 function App() {
   const [auth, setAuth] = useState(null);
@@ -24,7 +25,11 @@ function App() {
     return <Loading />;
   }
   if (auth) {
-    return <Explorify auth={auth} />;
+    return (
+      <SnackbarProvider>
+        <Explorify auth={auth} />
+      </SnackbarProvider>
+    );
   }
   return <LoginPage />;
 }

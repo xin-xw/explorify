@@ -128,7 +128,7 @@ export default function SearchResults({ results, onChange }) {
               button
               onClick={handle_toggle(item.id, item.name)}
               // margin={-4}
-              style={{ width: 500 }}
+              style={{ maxWidth: 500 }}
             >
               <ListItemIcon>
                 <Checkbox

@@ -13,7 +13,7 @@ import {
   styled,
 } from "@material-ui/core";
 import axios from "axios";
-
+import { useSnackbar } from "react-simple-snackbar";
 import SearchBar from "./component/search_bar";
 import RecBoards from "./component/rec_boards";
 import RecommendationResults from "./component/rec_results";
@@ -36,7 +36,7 @@ const theme = createMuiTheme({
     },
     action: {
       disabledBackground: "#EBEBE4",
-      disabled: "",
+      disabled: "#000",
     },
   },
   props: {
@@ -103,6 +103,18 @@ const theme = createMuiTheme({
   },
 });
 
+const options = {
+  position: "bottom-right",
+  style: {
+    backgroundColor: "#C5C8BC",
+    // border: "2px solid lightgreen",
+    color: "#000",
+    fontFamily: "Inter",
+    fontSize: "15px",
+    textAlign: "center",
+  },
+};
+
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
     padding: 10,
@@ -134,15 +146,16 @@ const useStyles = makeStyles((theme) => ({
   step_header: {
     color: "black",
     textAlign: "left",
-    fontSize: "1.55em",
+    fontSize: "1.7em",
     marginBottom: 10,
-    fontWeight: "600",
+    fontWeight: "700",
   },
   step_desc: {
     color: "black",
     textAlign: "left",
-    fontSize: "1.1em",
-    marginBottom: 20,
+    fontSize: "1.2em",
+    marginBottom: 30,
+    lineHeight: 1.5,
   },
   card: {
     // backgroundColor: "FFB4A2",
@@ -174,6 +187,8 @@ const Explorify = ({ auth }) => {
   const [selected_seeds, set_selected_seeds] = useState([]);
   const [playlist_id, set_playlist_id] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [preventGetYourResults, setPreventGetYourResults] = useState(true);
+  const [openSnackbar, closeSnackbar] = useSnackbar(options);
 
   console.log("rv", rec_values);
   console.log("user_id", user_id);
@@ -215,6 +230,8 @@ const Explorify = ({ auth }) => {
 
   const create_playlist = async () => {
     setDisabled(true);
+    setPreventGetYourResults(false);
+    openSnackbar("Successfully created playlist on your Spotify");
     const url = "https://api.spotify.com/v1/users/";
     const playlist_name = "brought to you by explorify";
     // const playlist_desc = "generated at ";
@@ -244,30 +261,24 @@ const Explorify = ({ auth }) => {
   async function export_to_playlist() {
     // const playlist_id = await set_playlist_id;
     console.log(playlist_id);
+
     const url = "https://api.spotify.com/v1/playlists/";
     const uri = results.tracks.map((r) => "spotify:track:" + r.id);
     const euri = encodeURIComponent(uri);
     console.log(uri);
-    return await axios
+    const { data } = await axios
       .post(`${url}${playlist_id}/tracks?uris=${euri}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       })
-      .then((data) => console.log("success", data));
+      .then(openSnackbar("Successfully exported results to your Spotify"));
+
+    // .try(openSnackbar("Error, cannot export results to your Spotify"))
     // if (data) {
     //   console.log("success", data);
     // }
-  }
-
-  function handle_create_and_export() {
-    create_playlist();
-    setTimeout(function () {
-      export_to_playlist();
-    }, 15000);
-    console.log("pid", playlist_id);
-    // export_to_playlist();
   }
 
   return (
@@ -306,14 +317,15 @@ const Explorify = ({ auth }) => {
                   Step 2: Learn About Track Attributes
                 </Typography>
                 <Typography className={classes.step_desc}>
-                  Spotify provides audio features & analysis for every single
-                  song, but they restrict this data for only developers to see.
+                  Spotify provides audio features and analysis for every single
+                  track in their database, but they restrict this data for only
+                  developers to see.
                   <br></br>
-                  These audio features & analysis are also known as{" "}
+                  These audio features and analysis are also known as{" "}
                   <b>track attributes</b>. <br></br>
                   With Explorify, you can adjust these track attributes to your
-                  liking - leading you to more songs based on those redeeming
-                  qualities in supplement to your reference tracks!
+                  liking - leading you to explore more songs based on those
+                  redeeming qualities in supplement to your reference tracks!
                   <br></br>
                   Go ahead and learn about these track attributes in the{" "}
                   <b>Book of Track Attributes</b>, then scroll down to the{" "}
@@ -370,13 +382,14 @@ const Explorify = ({ auth }) => {
                   Go ahead and click the button as many times as you want until
                   you get a set of results that you like. <br></br> If you wish
                   to save your results, scroll down to{" "}
-                  <b>Create Your Playlist</b> and <b>Export Your Results</b>
-                  to the playlist!
+                  <b>Create Your Playlist</b> and <b>Export Your Results</b> to
+                  the playlist!
                 </Typography>
                 <Button
                   className={classes.get_rec_button}
                   variant={"contained"}
                   onClick={get_recommendations}
+                  style={{ marginTop: -25 }}
                 >
                   {/* <Typography classes={classes.get_rec_button_font}> */}
                   GET RECOMMENDATIONS
@@ -404,26 +417,28 @@ const Explorify = ({ auth }) => {
                   <b>Note:</b> Once you have created your playlist, the{" "}
                   <b>Create Your Playlist</b> button will be disabled! But, the{" "}
                   <b>Export Your Results</b> button is still available.{" "}
-                  <br></br>You can go back to modify your reference tracks, tune
-                  your track attributes, and get your recommendations over and
-                  over again. Once you are ready, just press{" "}
-                  <b>Export To Playlist</b> again and stack on top of the
-                  playlist that you initially created.
+                  <br></br> <b>What does this mean?</b> You can go back to
+                  modify your reference tracks, tune your track attributes, and
+                  get your recommendations over and over again. Once you are
+                  ready, just press <b>Export To Playlist</b> again to keep
+                  stacking your results top of the playlist that you already
+                  created.
                   <br></br>This way, you'll have one gigantic playlist of new
                   songs that you can put on shuffle (and not 20 new playlists).
                 </Typography>
                 <Grid container className={classes.gridContainer}>
                   <Grid item align="center" xs={6}>
                     <Button
+                      className={classes.get_rec_button}
+                      variant={"contained"}
                       style={{
-                        backgroundColor: "#B7B7A4",
+                        margin: "auto",
+
                         color: "#2b2d42",
                         justify: "center",
                       }}
-                      variant={"contained"}
                       disabled={disabled}
                       onClick={() => create_playlist()}
-                      className={{ disable: classes.button }}
                     >
                       Create Your Playlist
                       <AddBoxIcon style={{ marginLeft: 5, fontSize: 28 }} />
@@ -431,13 +446,15 @@ const Explorify = ({ auth }) => {
                   </Grid>
                   <Grid item align="center" xs={6}>
                     <Button
+                      className={classes.get_rec_button}
+                      variant={"contained"}
                       style={{
                         margin: "auto",
-                        backgroundColor: "#B7B7A4",
+
                         color: "#2b2d42",
                         justify: "center",
                       }}
-                      variant={"contained"}
+                      disabled={preventGetYourResults}
                       onClick={export_to_playlist}
                     >
                       Export Your Results
@@ -450,10 +467,18 @@ const Explorify = ({ auth }) => {
           </Box>
         </Grid>
         <Grid item xs={12} align="center">
-          <Typography>
+          <Typography
+            style={{
+              fontFamily: "Inter",
+              fontSize: "1.3em",
+              fontWeight: "500",
+              paddingBottom: "50px",
+              color: "#fff",
+            }}
+          >
             Thank you for trying this out! Learn more about me at:{" "}
             <a href="https://www.xinwang.me" target="_blank" rel="noreferrer">
-              https://www.xinwang.me
+              https://www.xinwang.me.
             </a>
           </Typography>
         </Grid>

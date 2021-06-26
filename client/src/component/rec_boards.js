@@ -94,21 +94,19 @@ const useStyles = makeStyles((theme) => ({
   },
   rec_font_2: {
     // color: "#000",
-    color: "#2b2d42",
+    color: "#000",
     // fontFamily: "Concert One",
-    fontFamily: "Benne",
-    fontWeight: 700,
-    fontSize: "1.5em",
+    fontFamily: "Arvo",
+    // fontWeight: 700,
+    fontSize: "1.2em",
     textAlign: "left",
   },
   rec_font_3: {
-    // color: "#000",
     color: "#2b2d42",
-    // fontFamily: "Concert One",
-    fontFamily: "Benne",
-    // fontWeight: 700,
-    fontSize: "1.5em",
-    // textAlign: "left",
+    fontFamily: "Arvo",
+    fontSize: "1.2em",
+    textAlign: "center",
+    marginTop: -10,
   },
   track_attribute_image: {
     margin: 10,
@@ -138,16 +136,17 @@ const useStyles = makeStyles((theme) => ({
   },
   cb_title: {
     color: "#2b2d42",
-    fontFamily: "Sawarabi Mincho",
+    // fontFamily: "Sawarabi Mincho",
+    fontFamily: "Arvo",
     paddingTop: 10,
     paddingBottom: 5,
-    fontWeight: 1000,
+    // fontWeight: 1000,
     fontSize: "2.4em",
     textAlign: "center",
   },
   cb_paper: {
     backgroundColor: "transparent",
-    padding: 3,
+    padding: 5,
   },
 }));
 
@@ -264,7 +263,7 @@ export default function RecBoards({ onChange }) {
                       className={classes.checkboxes_root}
                       disableRipple
                       color="default"
-                      style={{}}
+                      style={{ marginLeft: 8 }}
                       checkedIcon={
                         <span
                           className={clsx(
