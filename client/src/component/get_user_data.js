@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles, Grid, Typography, Avatar } from "@material-ui/core";
+import {
+  makeStyles,
+  Grid,
+  Typography,
+  Avatar,
+  withStyles,
+  Box,
+} from "@material-ui/core";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -7,14 +14,34 @@ const useStyles = makeStyles((theme) => ({
     direction: "row",
     justifyContent: "center",
     alignItems: "center",
-    // padding: 10,
+    padding: 10,
+    marginTop: 50,
+    marginBottom: 30,
   },
   large: {
     margin: 10,
-    width: theme.spacing(5.5),
-    height: theme.spacing(5.5),
+    width: theme.spacing(9),
+    height: theme.spacing(9),
   },
+  font: {
+    fontFamily: "Yeseva One",
+    fontSize: "3.3em",
+    color: "#000",
+  },
+  gridItem: {},
 }));
+
+const CustomColor = withStyles({
+  root: {
+    fontSize: "3.3em",
+    // background: "-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    // background: "linear-gradient(to right, #de6262, #ffb88c)",
+    background: "linear-gradient(to right, #d3cce3, #e9e4f0)",
+
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+})(Typography);
 
 export default function GetUserData({ auth, onChange }) {
   const classes = useStyles();
@@ -54,17 +81,31 @@ export default function GetUserData({ auth, onChange }) {
 
   return (
     <Grid container className={classes.gridContainer}>
-      <Grid item>
-        <Typography variant="h4" fontWeight="fontWeightBold">
-          hello 👋, {user_name}!
-        </Typography>
-      </Grid>
-      <Grid item>
+      <Grid item xs={12} align="center">
         <Avatar
           src={user_image}
           alt="user_image"
           className={classes.large}
         ></Avatar>
+      </Grid>
+      <Grid item xs={12} align="center" className={classes.gridItem}>
+        <Typography
+          // style={{ textShadow: "1px 1px 1px black" }}
+          className={classes.font}
+          display="inline"
+        >
+          welcome to explorify,
+        </Typography>
+        <CustomColor className={classes.font} display="inline">
+          {" "}
+          {user_name}
+        </CustomColor>
+        <Typography className={classes.font} display="inline">
+          {" "}
+          👋
+        </Typography>
+
+        {/* </div> */}
       </Grid>
     </Grid>
   );

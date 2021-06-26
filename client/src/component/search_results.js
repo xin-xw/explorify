@@ -64,26 +64,31 @@ const useStyles = makeStyles((theme) => ({
   },
   search_results: {
     // paddingTop: 15,
-    paddingLeft: 20,
+    // paddingLeft: 20,
     // marginTop: 15,
+    // width: 500,
+    backgroundColor: "#ffe8d6",
+    borderRadius: 10,
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.4)",
   },
   cover_art: {
-    marginLeft: -15,
+    marginLeft: -25,
     marginRight: 10,
     // width: theme.spacing(5.5),
-    width: theme.spacing(4.5),
+    width: theme.spacing(5.8),
     // height: theme.spacing(5.5),
-    height: theme.spacing(4.5),
+    height: theme.spacing(5.8),
   },
   track_name: {
-    // fontSize: 16,
-    // fontWeight: 500,
-    fontSize: 13.5,
+    fontSize: 15,
     fontWeight: 500,
+    // fontSize: 13.5,
+    color: "#000",
   },
   artist_name: {
-    // fontSize: 13,
-    fontSize: 11,
+    fontSize: 13,
+    // fontSize: 11,
+    color: "#000",
   },
 }));
 
@@ -117,12 +122,13 @@ export default function SearchResults({ results, onChange }) {
     <Grid container className={classes.grid_container}>
       <Grid item xs={12} className={classes.search_results}>
         <List>
-          {results.map((item, index) => (
+          {results.slice(0, 10).map((item, index) => (
             <ListItem
               key={item.id}
               button
               onClick={handle_toggle(item.id, item.name)}
               // margin={-4}
+              style={{ width: 500 }}
             >
               <ListItemIcon>
                 <Checkbox

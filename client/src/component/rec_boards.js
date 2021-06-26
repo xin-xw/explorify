@@ -7,9 +7,11 @@ import {
   Checkbox,
   makeStyles,
   Paper,
+  Card,
+  CardContent,
   Box,
+  Avatar,
 } from "@material-ui/core";
-import { palette } from "@material-ui/system";
 /* 
 1. key: The key of the object is the name of our metric
 2. value: specifies the current set value of our nob
@@ -18,7 +20,7 @@ import { palette } from "@material-ui/system";
 5. max: what is the maximum value this nob can be
 6. step: what increments does the slider change value
 */
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   checkboxes_root: {
     "&:hover": {
       backgroundColor: "transparent",
@@ -26,8 +28,8 @@ const useStyles = makeStyles({
   },
   checkboxes_icon: {
     borderRadius: 3,
-    width: 18,
-    height: 18,
+    width: 16,
+    height: 16,
     boxShadow:
       "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
     backgroundColor: "#f5f8fa",
@@ -51,8 +53,8 @@ const useStyles = makeStyles({
       "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
     "&:before": {
       display: "block",
-      width: 18,
-      height: 18,
+      width: 16,
+      height: 16,
       backgroundImage:
         "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
         " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
@@ -64,13 +66,90 @@ const useStyles = makeStyles({
     },
   },
   paper_root: {
-    // backgroundColor: "black:",
     padding: 10,
-    width: "95%",
-    // borderRadius: 10,
-    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.1)",
+    width: "100%",
+    borderRadius: 10,
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.4)",
+    backgroundColor: "#ffe8d6",
   },
-});
+  // rec_font: {
+  //   color: "#000",
+  //   // backgroundColor: "#B5838D",
+  //   // backgroundColor: "#FFCDB2",
+  // },
+  rec_card_root: {
+    maxWidth: 925,
+    // height: "250px",
+    marginBottom: 30,
+    borderRadius: 10,
+  },
+  rec_font: {
+    // color: "#000",
+    color: "#2b2d42",
+    fontFamily: "Sawarabi Mincho",
+    paddingTop: 20,
+    fontWeight: 1000,
+    fontSize: "2.4em",
+    textAlign: "center",
+  },
+  rec_font_2: {
+    // color: "#000",
+    color: "#2b2d42",
+    // fontFamily: "Concert One",
+    fontFamily: "Benne",
+    fontWeight: 700,
+    fontSize: "1.5em",
+    textAlign: "left",
+  },
+  rec_font_3: {
+    // color: "#000",
+    color: "#2b2d42",
+    // fontFamily: "Concert One",
+    fontFamily: "Benne",
+    // fontWeight: 700,
+    fontSize: "1.5em",
+    // textAlign: "left",
+  },
+  track_attribute_image: {
+    margin: 10,
+    width: theme.spacing(9),
+    height: theme.spacing(9),
+  },
+  rec_root: {
+    // padding: 5,
+    marginTop: 15,
+    marginBottom: 10,
+    maxWidth: 825,
+    maxHeight: 100,
+    backgroundColor: "#C9C9BA",
+    // backgroundColor: "transparent",
+    // border: "2px solid #000",
+    marginLeft: 5,
+    marginRight: 5,
+    borderRadius: 10,
+  },
+  cb: {
+    maxWidth: 925,
+    // height: "250px",
+    // marginBottom: 30,
+    borderRadius: 10,
+    backgroundColor: "#ffe8d6",
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.4)",
+  },
+  cb_title: {
+    color: "#2b2d42",
+    fontFamily: "Sawarabi Mincho",
+    paddingTop: 10,
+    paddingBottom: 5,
+    fontWeight: 1000,
+    fontSize: "2.4em",
+    textAlign: "center",
+  },
+  cb_paper: {
+    backgroundColor: "transparent",
+    padding: 3,
+  },
+}));
 
 const recs = {
   acousticness: {
@@ -147,7 +226,6 @@ const recs = {
 export default function RecBoards({ onChange }) {
   const classes = useStyles();
   const [board_values, set_board_values] = useState(recs);
-
   const handle_change = (rec, value) => {
     const new_board_values = { ...board_values };
     new_board_values[rec].value = value;
@@ -165,57 +243,198 @@ export default function RecBoards({ onChange }) {
   }, [onChange, board_values]);
 
   return (
-    <Grid container spacing={0} style={{ padding: 0 }} justify="center">
-      <Paper elevation={3} className={classes.paper_root}>
-        {/* <Grid item xs={12}>  */}
+    <Card className={classes.cb}>
+      <CardContent>
+        <Typography className={classes.cb_title}>Control Panel 🎛</Typography>
+      </CardContent>
+      <Grid
+        container
+        direction="row"
+        spacing={0}
+        justify="center"
+        alignItems="center"
+      >
         {Object.keys(recs).map((rec) => (
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <Checkbox
-              className={classes.checkboxes_root}
-              disableRipple
-              color="default"
-              checkedIcon={
-                <span
-                  className={clsx(
-                    classes.checkboxes_icon,
-                    classes.checked_icon
-                  )}
-                />
-              }
-              icon={<span className={classes.checkboxes_icon} />}
-              inputProps={{ "aria-label": "decorative checkbox" }}
-              checked={board_values[rec].enabled}
-              onChange={(e, newValue) => toggle_rec(rec, newValue)}
-            />
-            <div style={{ flex: 1 }}>
-              <Grid container>
-                <Typography>{rec}</Typography>
-                <Grid container spacing={1}>
-                  <Grid item>
-                    <Typography>min</Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Slider
-                      disabled={!board_values[rec].enabled}
-                      value={board_values[rec].value}
-                      onChange={(e, new_value) => handle_change(rec, new_value)}
-                      valueLabelDisplay={"auto"}
-                      aria-labelledby={"range-slider"}
-                      min={recs[rec].min}
-                      max={recs[rec].max}
-                      step={recs[rec].step}
+          <Grid item xs={12} sm={6} align="center">
+            <Paper className={classes.cb_paper} variant="outlined">
+              <Grid container alignItems="center" justify="center">
+                <Grid item xs={12} align="center">
+                  <Typography className={classes.rec_font_2}>
+                    <Checkbox
+                      className={classes.checkboxes_root}
+                      disableRipple
+                      color="default"
+                      style={{}}
+                      checkedIcon={
+                        <span
+                          className={clsx(
+                            classes.checkboxes_icon,
+                            classes.checked_icon
+                          )}
+                        />
+                      }
+                      icon={<span className={classes.checkboxes_icon} />}
+                      inputProps={{ "aria-label": "decorative checkbox" }}
+                      checked={board_values[rec].enabled}
+                      onChange={(e, newValue) => toggle_rec(rec, newValue)}
                     />
-                  </Grid>
-                  <Grid item>
-                    <Typography>max</Typography>
-                  </Grid>
+                    {rec}
+                  </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  <Typography className={classes.rec_font_3}>min</Typography>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                  <Slider
+                    disabled={!board_values[rec].enabled}
+                    value={board_values[rec].value}
+                    onChange={(e, new_value) => handle_change(rec, new_value)}
+                    valueLabelDisplay={"auto"}
+                    aria-labelledby={"range-slider"}
+                    min={recs[rec].min}
+                    max={recs[rec].max}
+                    step={recs[rec].step}
+                    style={{ marginTop: -3 }}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  <Typography className={classes.rec_font_3}>max</Typography>
                 </Grid>
               </Grid>
-            </div>
-          </div>
+            </Paper>
+          </Grid>
         ))}
-        {/* </Grid> */}
-      </Paper>
-    </Grid>
+      </Grid>
+    </Card>
+
+    // <Grid
+    //   container
+    //   spacing={2}
+    //   style={{ padding: 0 }}
+    //   justify="center"
+    //   direction="row"
+    // >
+    //   <Grid item xs={12}>
+    //     <Card
+    //       className={classes.rec_card_root}
+    //       style={{
+    //         backgroundColor: "#ffe8d6",
+    //         boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.4)",
+    //         paddingBottom: 30,
+    //       }}
+    //     >
+    //       <Typography className={classes.rec_font}>Control Panel 🎮</Typography>
+    //       {Object.keys(recs).map((rec) => (
+    //         <Grid item xs={5}>
+    //           <Paper className={classes.rec_root} variant="elevation">
+    //             <CardContent style={{}}>
+    //               <Typography className={classes.rec_font_2}>
+    //                 <Checkbox
+    //                   className={classes.checkboxes_root}
+    //                   disableRipple
+    //                   color="default"
+    //                   style={{ marginLeft: -6 }}
+    //                   checkedIcon={
+    //                     <span
+    //                       className={clsx(
+    //                         classes.checkboxes_icon,
+    //                         classes.checked_icon
+    //                       )}
+    //                     />
+    //                   }
+    //                   icon={<span className={classes.checkboxes_icon} />}
+    //                   inputProps={{ "aria-label": "decorative checkbox" }}
+    //                   checked={board_values[rec].enabled}
+    //                   onChange={(e, newValue) => toggle_rec(rec, newValue)}
+    //                 />
+    //                 {rec}
+    //               </Typography>
+    //               <Grid container style={{ paddingTop: 5 }}>
+    //                 <Grid item xs={1} align="right">
+    //                   <Typography className={classes.rec_font_3}>
+    //                     min
+    //                   </Typography>
+    //                 </Grid>
+    //                 <Grid item xs={10} align="center" justify="center">
+    //                   <Slider
+    //                     disabled={!board_values[rec].enabled}
+    //                     value={board_values[rec].value}
+    //                     onChange={(e, new_value) =>
+    //                       handle_change(rec, new_value)
+    //                     }
+    //                     valueLabelDisplay={"auto"}
+    //                     aria-labelledby={"range-slider"}
+    //                     min={recs[rec].min}
+    //                     max={recs[rec].max}
+    //                     step={recs[rec].step}
+    //                     style={{ marginTop: -3 }}
+    //                   />
+    //                 </Grid>
+    //                 <Grid item xs={1}>
+    //                   <Typography className={classes.rec_font_3}>
+    //                     max
+    //                   </Typography>
+    //                 </Grid>
+    //               </Grid>
+    //             </CardContent>
+    //           </Paper>
+    //         </Grid>
+    //       ))}
+    //     </Card>
+    //   </Grid>
+    // </Grid>
+
+    // <Grid container spacing={0} style={{ padding: 0 }} justify="center">
+    //   <Paper elevation={3} className={classes.paper_root}>
+    //     {/* <Grid item xs={12}>  */}
+    //     {Object.keys(recs).map((rec) => (
+    //       <div style={{ display: "flex", flexDirection: "row" }}>
+    //         <Checkbox
+    //           className={classes.checkboxes_root}
+    //           disableRipple
+    //           color="default"
+    //           checkedIcon={
+    //             <span
+    //               className={clsx(
+    //                 classes.checkboxes_icon,
+    //                 classes.checked_icon
+    //               )}
+    //             />
+    //           }
+    //           icon={<span className={classes.checkboxes_icon} />}
+    //           inputProps={{ "aria-label": "decorative checkbox" }}
+    //           checked={board_values[rec].enabled}
+    //           onChange={(e, newValue) => toggle_rec(rec, newValue)}
+    //         />
+    //         <div style={{ flex: 1 }}>
+    //           <Grid container>
+    //             <Typography className={classes.font_color}>{rec}</Typography>
+    //             <Grid container spacing={1}>
+    //               <Grid item>
+    //                 <Typography className={classes.font_color}>min</Typography>
+    //               </Grid>
+    //               <Grid item xs>
+    //                 <Slider
+    //                   disabled={!board_values[rec].enabled}
+    //                   value={board_values[rec].value}
+    //                   onChange={(e, new_value) => handle_change(rec, new_value)}
+    //                   valueLabelDisplay={"auto"}
+    //                   aria-labelledby={"range-slider"}
+    //                   min={recs[rec].min}
+    //                   max={recs[rec].max}
+    //                   step={recs[rec].step}
+    //                 />
+    //               </Grid>
+    //               <Grid item>
+    //                 <Typography className={classes.font_color}>max</Typography>
+    //               </Grid>
+    //             </Grid>
+    //           </Grid>
+    //         </div>
+    //       </div>
+    //     ))}
+    //     {/* </Grid> */}
+    //   </Paper>
+    // </Grid>
   );
 }

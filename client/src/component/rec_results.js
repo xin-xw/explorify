@@ -7,59 +7,106 @@ import {
   ListItem,
   ListItemText,
   Avatar,
+  Paper,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
 } from "@material-ui/core";
+import ReactFitText from "react-fittext";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
     direction: "row",
     padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  cover_art: {
-    marginLeft: -15,
-    marginRight: 10,
-    // width: theme.spacing(5.5),
-    width: theme.spacing(6),
-    // height: theme.spacing(5.5),
-    height: theme.spacing(6),
+  gridContainer2: {
+    direction: "row",
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
   },
+  // cover_art: {
+  //   width: theme.spacing(9),
+  //   height: theme.spacing(9),
+  // },
   track_name: {
-    fontSize: 16,
-    fontWeight: 500,
+    marginTop: 5,
+    width: "100%",
+    fontSize: "1em",
+    fontWeight: 600,
+    textAlign: "center",
+    backgroundColor: "none",
   },
   artist_name: {
-    fontSize: 13,
+    width: "100%",
+    fontSize: "1em",
+    textAlign: "center",
+    // top: "20%",
+    // position: "absolute",
+  },
+  paper_result: {
+    position: "relative",
+    width: "180px",
+    height: "220px",
+    // minHeight: "300px",
+    marginBottom: 30,
+    borderRadius: 10,
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.3)",
+    backgroundColor: "#ffe8d6",
   },
 }));
 
 const RecommendationResults = ({ results }) => {
-  console.log(results);
+  console.log("results", results);
   const classes = useStyles();
+
+  // const return_track_name = ({ track_name }) => {
+  //   console.log("track_name", track_name);
+  //   return track_name;
+  // };
+
   if (!results.tracks || results.tracks.length === 0) {
-    return <Typography>No Results!</Typography>;
+    return (
+      <Typography>
+        Sorry, I couldn't find any results! Your modifications were too
+        specific! Try selecting less track attributes or less referencee tracks.
+      </Typography>
+    );
   }
+
   return (
     <Grid container className={classes.gridContainer}>
-      {/* <List> */}
-      {results.tracks.map((track) => (
-        <Grid item xs={6}>
-          <ListItem key={track.id}>
-            <Avatar
-              src={track.album.images[2].url}
-              variant="square"
-              className={classes.cover_art}
-            ></Avatar>
-            <ListItemText>
-              <Typography className={classes.track_name}>
-                {track.name}
-              </Typography>
-              <Typography className={classes.artist_name}>
-                {track.artists[0].name}
-              </Typography>
-            </ListItemText>
-          </ListItem>
-        </Grid>
-      ))}
-      {/* </List> */}
+      <Grid container spacing={3} className={classes.gridContainer2}>
+        {results.tracks.map((track) => (
+          <Grid item align="center">
+            <Card className={classes.paper_result}>
+              <CardContent
+                styles={{
+                  alignItems: "center",
+                  align: "center",
+                  justify: "center",
+                }}
+              >
+                <CardMedia
+                  style={{ position: "relative", width: "60%", height: "50%" }}
+                  component="img"
+                  image={track.album.images[2].url}
+                ></CardMedia>
+                <Typography className={classes.track_name}>
+                  {track.name}
+                </Typography>
+                <Typography noWrap className={classes.artist_name}>
+                  {track.artists[0].name}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Grid>
   );
 };

@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import SearchResults from "./search_results";
+import MusicNoteIcon from "@material-ui/icons/MusicNote";
 
 const useStyles = makeStyles({
   root: {
@@ -25,14 +26,16 @@ const useStyles = makeStyles({
     justify: "center",
     padding: 7,
     margin: "auto",
-    "background-color": "white",
-    borderRadius: 5,
+    backgroundColor: "#ffe8d6",
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.4)",
+    borderRadius: 10,
     // minHeight: 150,
     marginBottom: 30,
   },
   search_result: {
     // paddingTop: -10,
     // marginTop: -20,
+    color: "#000",
   },
   selected_seeds: {
     // paddingTop: 10,
@@ -68,7 +71,6 @@ export default function SearchBar({ auth, onChange }) {
   const [search_result, set_search_result] = useState([]);
   const [search_string, set_search_string] = useState("");
   const [seleceted_seeds, set_selected_seeds] = useState([]);
-  const [seed_ids, set_seed_ids] = useState([]);
 
   async function spotify_search_songs() {
     const url = "https://api.spotify.com/v1/search";
@@ -108,8 +110,7 @@ export default function SearchBar({ auth, onChange }) {
           <TextField
             id={"outlined-basic"}
             variant={"outlined"}
-            // label={"search for seeds"}
-            placeholder="enter reference tracks"
+            placeholder="enter reference tracks..."
             fullWidth
             InputLabelProps={{
               shrink: true,
@@ -126,36 +127,33 @@ export default function SearchBar({ auth, onChange }) {
           <Button
             style={{
               marginLeft: 5,
-              backgroundColor: "#1DB954",
-              color: "white",
+              backgroundColor: "#B7B7A4",
+              color: "#2b2d42",
             }}
             onClick={spotify_search_songs}
             variant="contained"
           >
-            <Search />
+            <MusicNoteIcon style={{ fontSize: 35 }} />
           </Button>
         </Box>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <Box className={classes.search_results}>
-          <SearchResults
-            results={search_result}
-            onChange={set_selected_seeds}
-          />
-        </Box>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        {/* <Typography className={classes.selected_seeds_header}>
+      {/* <Grid item xs={12} sm={6}> */}
+      <Box className={classes.search_results}>
+        <SearchResults results={search_result} onChange={set_selected_seeds} />
+      </Box>
+      {/* </Grid> */}
+      {/* <Grid item xs={12} sm={6}> */}
+      {/* <Typography className={classes.selected_seeds_header}>
           Your selected seeds will appear here
         </Typography> */}
-        <Paper className={classes.selected_seeds}>
+      {/* <Paper className={classes.selected_seeds}>
           {seleceted_seeds.map((songs, index) => (
             <Typography className={classes.selected_seeds_songs}>
               {index + 1}. {songs}
             </Typography>
           ))}
         </Paper>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

@@ -23,7 +23,7 @@ b. if necessary, we can refresh access w/ refresh token
 
 // Have our application request authorization, and then have the user log in via spotify’s auth flow
 router.get("/login", (req, res) => {
-  var scope = "playlist-modify-public "; // What we ask to see
+  var scope = "playlist-modify-public user-library-read"; // What we ask to see
   res.redirect(
     // 2. & 3.
     `https://accounts.spotify.com/authorize?${querystring.stringify({
