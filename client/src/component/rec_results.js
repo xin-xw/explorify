@@ -13,7 +13,6 @@ import {
   CardContent,
   CardMedia,
 } from "@material-ui/core";
-import ReactFitText from "react-fittext";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {

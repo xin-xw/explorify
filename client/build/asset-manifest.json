@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/static/js/main.69df3722.chunk.js",
-    "main.js.map": "/static/js/main.69df3722.chunk.js.map",
+    "main.js": "/static/js/main.2b5bd93a.chunk.js",
+    "main.js.map": "/static/js/main.2b5bd93a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.a06e69b5.js",
     "runtime-main.js.map": "/static/js/runtime-main.a06e69b5.js.map",
-    "static/js/2.8214772b.chunk.js": "/static/js/2.8214772b.chunk.js",
-    "static/js/2.8214772b.chunk.js.map": "/static/js/2.8214772b.chunk.js.map",
+    "static/js/2.bce55106.chunk.js": "/static/js/2.bce55106.chunk.js",
+    "static/js/2.bce55106.chunk.js.map": "/static/js/2.bce55106.chunk.js.map",
     "index.html": "/index.html",
     "static/css/main.6dea0f05.chunk.css.map": "/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.8214772b.chunk.js.LICENSE.txt": "/static/js/2.8214772b.chunk.js.LICENSE.txt",
+    "static/js/2.bce55106.chunk.js.LICENSE.txt": "/static/js/2.bce55106.chunk.js.LICENSE.txt",
     "static/media/acousticness.ab8a8197.png": "/static/media/acousticness.ab8a8197.png",
     "static/media/danceability.fed64301.png": "/static/media/danceability.fed64301.png",
     "static/media/energy.8329b3c2.png": "/static/media/energy.8329b3c2.png",
@@ -23,8 +23,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.a06e69b5.js",
-    "static/js/2.8214772b.chunk.js",
+    "static/js/2.bce55106.chunk.js",
     "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.69df3722.chunk.js"
+    "static/js/main.2b5bd93a.chunk.js"
   ]
 }
