@@ -27,8 +27,12 @@ app.use(csurf()); // This protects against Cross-site request forgery. This need
 const auth_routes = require("./routes/auth");
 app.use("/auth", auth_routes);
 
+app.get("/", function (req, res) {
+  res.send("hello world");
+});
+
 app.listen(8080, () => {
-  console.log("I'm listening...");
+  console.log("PORT STARTED");
 });
 
 module.exports = app;
