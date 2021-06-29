@@ -19,5 +19,5 @@ jobs:
           aws-region: us-west-1
           instance-ids: ${{ secrets.INSTANCE_ID  }}
           comment: Deploy the master branch
-	  working-directory: /home/ubuntu/Explorify
+          working-directory: /home/ubuntu/Explorify/
           command: /bin/sh ./deploy.sh
