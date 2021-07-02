@@ -109,8 +109,8 @@ export default function GetUserData({ auth, onChange }) {
           👋
         </Typography>
       </Grid>
-      <Grid item xs={12}>
-        <Button onClick={logout}>Log Out</Button>
+      <Grid item xs={12} align="center">
+        <Button href="/auth/logout">Log Out</Button>
       </Grid>
     </Grid>
   );
