@@ -4,8 +4,6 @@ import {
   Box,
   Card,
   CardContent,
-  CardMedia,
-  CardActionArea,
   makeStyles,
   Button,
   styled,
@@ -13,6 +11,7 @@ import {
   ThemeProvider,
   createMuiTheme,
   CssBaseline,
+  withStyles,
 } from "@material-ui/core";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
@@ -21,10 +20,11 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   title: {
-    marginTop: 20,
+    marginTop: 50,
     fontSize: "4.5em",
-    fontFamily: "Kiwi Maru",
+    fontFamily: "Yeseva One",
     fontWeight: 500,
+    marginBottom: -20,
     // color: "#9EB56F",
   },
   desc_root: {
@@ -59,10 +59,22 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: "#E2E2E2",
+      default: "#000",
     },
   },
 });
+
+const CustomColor = withStyles({
+  root: {
+    fontSize: "5em",
+    // background: "-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+    // background: "linear-gradient(to right, #de6262, #ffb88c)",
+    background: "linear-gradient(to right, #d3cce3, #e9e4f0)",
+    // background: "#000",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+})(Typography);
 
 const LoginButton = styled(Button)({
   background:
@@ -92,12 +104,12 @@ function LoginPage() {
           spacing={5}
         >
           <Grid item>
-            <Typography className={classes.title}>explorify</Typography>
+            <CustomColor className={classes.title}>explorify</CustomColor>
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <Card className={classes.desc_root}>
               <CardContent className={classes.desc_content}>
-                <Typography className={classes.desc_title} variant="h5">
+                <Typography className={classes.desc_title}>
                   What is this?
                 </Typography>
                 <Box
@@ -105,7 +117,7 @@ function LoginPage() {
                   flexDirection={"column"}
                   alignItems={"center"}
                   justifyContent={"center"}
-                  minHeight={250}
+                  // minHeight={250}
                   color={"black"}
                   textAlign={"center"}
                   elevation={3}
@@ -120,14 +132,29 @@ function LoginPage() {
                     >
                       here
                     </a>
-                    , disguised away from the public audience. Essentially,
-                    Explorify aims to unleash the potential of their API.
-                    Provided your favorite songs, Explorify aims to recommend
-                    you other similar tracks (if there is sufficient
-                    information). But, the cool thing is their API also allows
-                    you to customize your final matches with specific track
-                    attributes such as: danceability, energy, popularity, tempo,
-                    and more. Give it a try!
+                    {". "}
+                    Essentially, Explorify aims to unleash the potential of
+                    their API, allowing the general public to take advantage of
+                    it more! Provided your favorite songs, Explorify aims to
+                    recommend you other similar tracks (if there is sufficient
+                    information). But, the cool thing is that Spotify's API also
+                    allows you to customize your final matches with specific
+                    track attributes such as: danceability, energy, popularity,
+                    tempo, and more. Give it a try!
+                  </Typography>
+                </Box>
+                <Typography className={classes.desc_title}>
+                  How do I handle your data?
+                </Typography>
+                <Box marginBottom={3}>
+                  <Typography className={classes.desc_cta}>
+                    None of your data is stored on any database nor server. The
+                    website is SSL encrypted, meaning when you login to the
+                    website - your authentication information is safely
+                    encrypted. When you login, you share an authorization token
+                    with me. That token automatically expires within 1 hour. In
+                    addition, once you have clicked the log out button,
+                    everything is destroyed!
                   </Typography>
                 </Box>
                 <Typography className={classes.desc_cta}>
@@ -143,7 +170,7 @@ function LoginPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item>
+          <Grid item xs={12}>
             <LoginButton href="/auth/login" endIcon={<ExitToAppIcon />}>
               LOGIN WITH SPOTIFY
             </LoginButton>

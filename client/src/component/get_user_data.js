@@ -5,7 +5,7 @@ import {
   Typography,
   Avatar,
   withStyles,
-  Box,
+  Button,
 } from "@material-ui/core";
 import axios from "axios";
 
@@ -79,6 +79,10 @@ export default function GetUserData({ auth, onChange }) {
     set_user_id(data.id);
   }
 
+  function logout() {
+    return axios.get("/auth/logout");
+  }
+
   return (
     <Grid container className={classes.gridContainer}>
       <Grid item xs={12} align="center">
@@ -104,8 +108,9 @@ export default function GetUserData({ auth, onChange }) {
           {" "}
           👋
         </Typography>
-
-        {/* </div> */}
+      </Grid>
+      <Grid item xs={12}>
+        <Button onClick={logout}>Log Out</Button>
       </Grid>
     </Grid>
   );
