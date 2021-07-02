@@ -60,7 +60,7 @@ export default function GetUserData({ auth, onChange }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(data);
+      // console.log(data);
       if (data) {
         handle_retrieve_data(data);
       }

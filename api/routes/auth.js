@@ -38,7 +38,7 @@ router.get("/login", (req, res) => {
 // After we receive our code back from our authentication, we can use that to get an access and refresh token. The access token is what we need to get data from the Spotify Web API, such as searching for tracks and using the recommendations endpoint
 router.get("/callback", async (req, res) => {
   const { code } = req.query;
-  console.log(code);
+  // console.log(code);
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const secret = process.env.SPOTIFY_CLIENT_SECRET;
   const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;

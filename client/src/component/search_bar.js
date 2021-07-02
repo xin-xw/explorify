@@ -86,7 +86,7 @@ export default function SearchBar({ auth, onChange }) {
         },
       }
     );
-    console.log(data);
+    // console.log(data);
     if (data && data.tracks) {
       set_search_result(data.tracks.items);
     }

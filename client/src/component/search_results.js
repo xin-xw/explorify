@@ -96,7 +96,7 @@ export default function SearchResults({ results, onChange }) {
   const classes = useStyles();
   const [checked, set_checked] = useState([]);
   const [seeds, set_seeds] = useState([]);
-  console.log(checked);
+  // console.log(checked);
 
   const handle_toggle = (value, name) => () => {
     const cur_index = checked.indexOf(value);
@@ -113,7 +113,7 @@ export default function SearchResults({ results, onChange }) {
     }
     set_checked(new_checked);
     set_seeds(new_seed);
-    console.log("seeds", seeds);
+    // console.log("seeds", seeds);
     onChange(new_checked);
     // onChange(new_seed);
   };

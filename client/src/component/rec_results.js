@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RecommendationResults = ({ results }) => {
-  console.log("results", results);
+  // console.log("results", results);
   const classes = useStyles();
 
   // const return_track_name = ({ track_name }) => {

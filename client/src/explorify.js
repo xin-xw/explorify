@@ -190,9 +190,9 @@ const Explorify = ({ auth }) => {
   const [preventGetYourResults, setPreventGetYourResults] = useState(true);
   const [openSnackbar, closeSnackbar] = useSnackbar(options);
 
-  console.log("rv", rec_values);
-  console.log("user_id", user_id);
-  console.log("results");
+  // console.log("rv", rec_values);
+  // console.log("user_id", user_id);
+  // console.log("results");
 
   const get_recommendations = async () => {
     const url = "https://api.spotify.com/v1/recommendations";
@@ -223,7 +223,7 @@ const Explorify = ({ auth }) => {
       }
     );
     set_results(data);
-    console.log("data", data, results);
+    // console.log("data", data, results);
     // const uri = results.tracks.map((r) => "spotify:track:" + r.id);
     // console.log(uri);
   };
@@ -260,12 +260,12 @@ const Explorify = ({ auth }) => {
   // const export_to_playlist = async () => {
   async function export_to_playlist() {
     // const playlist_id = await set_playlist_id;
-    console.log(playlist_id);
+    // console.log(playlist_id);
 
     const url = "https://api.spotify.com/v1/playlists/";
     const uri = results.tracks.map((r) => "spotify:track:" + r.id);
     const euri = encodeURIComponent(uri);
-    console.log(uri);
+    // console.log(uri);
     const { data } = await axios
       .post(`${url}${playlist_id}/tracks?uris=${euri}`, null, {
         headers: {
