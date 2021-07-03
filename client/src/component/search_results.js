@@ -10,7 +10,11 @@ import {
   Typography,
   Avatar,
   Grid,
+  Button,
 } from "@material-ui/core";
+import spotify_logo_green from "../icon/spotify_logo_green.png";
+import spotify_logo_green_notext from "../icon/spotify_logo_green_notext.png";
+import spotify_icon_black from "../icon/spotify_icon_black.png";
 
 const useStyles = makeStyles((theme) => ({
   checkboxes_root: {
@@ -90,9 +94,24 @@ const useStyles = makeStyles((theme) => ({
     // fontSize: 11,
     color: "#000",
   },
+  spotify_button: {
+    background: "#B7B7A4",
+    boxShadow: "2px 2px 7px rgba(0, 0, 0, 0.4)",
+    color: "white",
+    paddingLeft: "10",
+    "&:hover": "background: white",
+  },
+  spotify_logo_green: {
+    // width: theme.spacing(5.8),
+    // height: theme.spacing(5.8),
+
+    width: "30px",
+    height: "30px",
+  },
 }));
 
 export default function SearchResults({ results, onChange }) {
+  console.log(results);
   const classes = useStyles();
   const [checked, set_checked] = useState([]);
   const [seeds, set_seeds] = useState([]);
@@ -155,7 +174,7 @@ export default function SearchResults({ results, onChange }) {
                 className={classes.cover_art}
               ></Avatar>
 
-              <ListItemText>
+              <ListItemText style={{ paddingRight: 20 }}>
                 <Typography className={classes.track_name}>
                   {item.name}
                 </Typography>
@@ -163,6 +182,13 @@ export default function SearchResults({ results, onChange }) {
                   {item.artists[0].name}
                 </Typography>
               </ListItemText>
+              <Button className={classes.spotify_button} href={item.uri}>
+                <Avatar
+                  className={classes.spotify_logo_green}
+                  src={spotify_icon_black}
+                  alt="spotify logo black"
+                ></Avatar>
+              </Button>
             </ListItem>
           ))}
         </List>

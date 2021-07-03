@@ -298,8 +298,11 @@ const Explorify = ({ auth }) => {
                 <Typography className={classes.step_desc}>
                   Include up to <b>5 seeds</b>, these "seeds" will serve as
                   reference tracks for the basis of your new set of recommended
-                  songs. <br></br>Go ahead and search for some songs! When you
-                  are done, scroll down to the next step.
+                  songs. Go ahead and search for some songs! When you are done,
+                  scroll down to the next step. <br></br> While searching for
+                  your reference tracks, you can click the Spotify Logo on the
+                  right side of each result to open and listen to the song on
+                  Spotify.
                 </Typography>
                 <SearchBar
                   auth={auth}

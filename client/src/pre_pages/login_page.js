@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop: 50,
-    fontSize: "4.5em",
+    fontSize: "5em",
     fontFamily: "Yeseva One",
     fontWeight: 500,
     marginBottom: -20,
@@ -59,7 +59,7 @@ const theme = createMuiTheme({
   },
   palette: {
     background: {
-      default: "#000",
+      default: "#B7B7A4",
     },
   },
 });
@@ -69,20 +69,21 @@ const CustomColor = withStyles({
     fontSize: "5em",
     // background: "-webkit-linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
     // background: "linear-gradient(to right, #de6262, #ffb88c)",
-    background: "linear-gradient(to right, #d3cce3, #e9e4f0)",
-    // background: "#000",
+    // background: "linear-gradient(to right, #d3cce3, #e9e4f0)",
+    background: "#000",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
 })(Typography);
 
 const LoginButton = styled(Button)({
-  background:
-    "linear-gradient(to right, #b2c9d4, #b8c4da, #c8bdd7, #d9b6ca, #e3b2b4)",
+  background: "linear-gradient(to right, #d3cce3, #e9e4f0)",
+
   border: 0,
   borderRadius: 10,
-  boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+  // boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   // boxShadow: "5px 5px 15px 5px rgba(214,223,193,.5)",
+  boxShadow: "0 3px 5px 2px rgba(0, 0, 0, .1)",
   color: "black",
   fontSize: 20,
   fontWeight: 400,
@@ -104,7 +105,7 @@ function LoginPage() {
           spacing={5}
         >
           <Grid item>
-            <CustomColor className={classes.title}>explorify</CustomColor>
+            <Typography className={classes.title}>explorify 🌎</Typography>
           </Grid>
           <Grid item xs={12}>
             <Card className={classes.desc_root}>
@@ -151,10 +152,10 @@ function LoginPage() {
                     None of your data is stored on any database nor server. The
                     website is SSL encrypted, meaning when you login to the
                     website - your authentication information is safely
-                    encrypted. When you login, you share an authorization token
-                    with me. That token automatically expires within 1 hour. In
-                    addition, once you have clicked the log out button,
-                    everything is destroyed!
+                    encrypted. When you choose to login with Spotify, your
+                    authorization token is shared with me. That token
+                    automatically expires within 1 hour. In addition, once you
+                    have clicked the log out button, everything is destroyed!
                   </Typography>
                 </Box>
                 <Typography className={classes.desc_cta}>

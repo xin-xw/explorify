@@ -79,10 +79,6 @@ export default function GetUserData({ auth, onChange }) {
     set_user_id(data.id);
   }
 
-  function logout() {
-    return axios.get("/auth/logout");
-  }
-
   return (
     <Grid container className={classes.gridContainer}>
       <Grid item xs={12} align="center">
@@ -110,7 +106,9 @@ export default function GetUserData({ auth, onChange }) {
         </Typography>
       </Grid>
       <Grid item xs={12} align="center">
-        <Button href="/auth/logout">Log Out</Button>
+        <Button href="/auth/logout">
+          <Typography style={{ fontWeight: 450 }}>Log Out</Typography>
+        </Button>
       </Grid>
     </Grid>
   );
