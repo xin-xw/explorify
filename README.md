@@ -1,7 +1,7 @@
 # Explorify
 
 ## About <a name = "about"></a>
-Spotify provides developers a Recommendation API that can be found here, disguised away from the public audience. Essentially, Explorify aims to unleash the potential of their API. Provided your favorite songs, Explorify aims to recommend you other similar tracks (if there is sufficient information). But, the cool thing is - Spotify's API also allows you to customize your final matches with specific track attributes such as: danceability, energy, popularity, tempo, and more. 
+Spotify provides developers a Recommendation API that can be found on their Developers website, disguised away from the public audience. Essentially, Explorify aims to unleash the potential of their API. Provided your favorite songs, Explorify aims to recommend you other similar tracks (if there is sufficient information). But, the cool thing is - Spotify's API also allows you to customize your final matches with specific track attributes such as: danceability, energy, popularity, tempo, and more. 
 
 ## Demo <a name = "demo"></a>
 ### Step 1: Input Your Songs
